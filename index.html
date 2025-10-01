@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>データ分析レポート（手順）</title>
+
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+      }
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+        background-color: #f6f8fa;
+        padding: 0.2em 0.4em;
+        margin: 0;
+        font-size: 85%;
+        border-radius: 3px;
+      }
+      pre {
+        background-color: #f6f8fa;
+        padding: 16px;
+        overflow: auto;
+        border-radius: 3px;
+      }
+      pre code {
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+        background-color: transparent;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      blockquote {
+        color: #666;
+        margin: 0;
+        padding-left: 1em;
+        border-left: 0.25em solid #dfe2e5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>データ分析環境構築と分析の手順</h1>
+    <p>
+      CSVデータを用いた基本的なデータ分析環境の構築から、可視化、機械学習までの詳細な手順。
+    </p>
+    <h2>1. サンプルデータの作成</h2>
+    <p>
+      「簡単なデータ分析を試したい」という要望に応え、散布図で傾向を把握できるよう、分析対象となるサンプルデータを作成した。
+    </p>
+    <ul>
+      <li><strong>ファイル名:</strong> <code>sample_data.csv</code></li>
+    </ul>
+    <details>
+      <summary>CSVデータの内容を表示</summary>
+      <pre><code class="language-csv">ID,Name,Age,City,Sales
+1,山崎 淳,29,Nagoya,246
+2,渡辺 翔太,37,Fukuoka,360
+3,藤井 直子,27,Fukuoka,452
+4,阿部 あすか,40,Fukuoka,526
+5,山崎 稔,44,Sapporo,438
+6,小林 里佳,21,Tokyo,180
+7,中村 千代,28,Osaka,290
+8,清水 直子,25,Sapporo,337
+9,山本 直人,65,Nagoya,473
+10,佐々木 七夏,29,Fukuoka,253
+11,加藤 千代,39,Sapporo,426
+12,渡辺 直樹,31,Sapporo,312
+13,清水 知実,22,Nagoya,153
+14,岡本 智也,25,Yokohama,208
+15,吉田 結衣,37,Sapporo,373
+16,清水 くみ子,54,Tokyo,280
+17,鈴木 春香,23,Tokyo,368
+18,三浦 加奈,41,Yokohama,536
+19,坂本 和也,52,Nagoya,475
+20,小林 千代,32,Yokohama,234
+21,石井 香織,48,Osaka,654
+22,石井 春香,56,Osaka,291
+23,鈴木 康弘,42,Sapporo,341
+24,高橋 美加子,39,Nagoya,292
+25,佐藤 香織,58,Tokyo,379
+26,佐藤 修平,55,Yokohama,267
+27,岡田 稔,43,Osaka,356
+28,山本 修平,44,Osaka,577
+29,加藤 篤司,26,Osaka,317
+30,田中 陽子,35,Nagoya,146
+31,吉田 さゆり,43,Sapporo,455
+32,佐藤 舞,35,Sapporo,532
+33,田中 幹,23,Nagoya,387
+34,森 修平,48,Nagoya,439
+35,坂本 晃,38,Nagoya,346
+36,小林 直人,51,Sapporo,418
+37,西村 智也,30,Tokyo,490
+38,田中 裕美子,30,Nagoya,368
+39,鈴木 千代,24,Fukuoka,215
+40,佐藤 舞,51,Yokohama,542
+41,井上 美加子,65,Tokyo,737
+42,岡田 春香,21,Yokohama,257
+43,小林 七夏,39,Osaka,237
+44,鈴木 里佳,56,Osaka,405
+45,森 英樹,57,Osaka,807
+46,小川 加奈,30,Osaka,275
+47,小林 陽一,23,Sapporo,133
+48,池田 修平,58,Osaka,711
+49,木村 亮介,46,Fukuoka,270
+50,山下 結衣,24,Tokyo,191
+51,田中 結衣,30,Nagoya,153
+52,渡辺 英樹,63,Yokohama,710
+53,村上 千代,65,Tokyo,438
+54,藤田 和也,35,Tokyo,335
+55,佐藤 康弘,25,Fukuoka,134
+56,山本 香織,44,Sapporo,331
+57,中村 陽子,34,Tokyo,273
+58,伊藤 香織,59,Fukuoka,447
+59,伊藤 美加子,35,Osaka,568
+60,山崎 真綾,35,Nagoya,568
+61,橋本 拓真,46,Osaka,711
+62,中島 さゆり,40,Yokohama,624
+63,太田 知実,29,Osaka,375
+64,高橋 太郎,31,Tokyo,169
+65,木村 真綾,21,Fukuoka,249
+66,山本 学,53,Yokohama,582
+67,田中 桃子,48,Yokohama,202
+68,坂本 晃,48,Yokohama,307
+69,中村 充,58,Sapporo,887
+70,佐藤 淳,29,Osaka,115
+71,中川 修平,33,Sapporo,261
+72,吉田 さゆり,65,Fukuoka,538
+73,松田 翼,31,Yokohama,358
+74,池田 あすか,59,Tokyo,868
+75,小川 さゆり,65,Nagoya,986
+76,鈴木 陽一,53,Nagoya,608
+77,加藤 浩,24,Yokohama,195
+78,伊藤 直樹,39,Yokohama,318
+79,山本 あすか,33,Nagoya,222
+80,清水 千代,49,Tokyo,535
+81,田中 治,32,Nagoya,346
+82,村上 治,22,Fukuoka,103
+83,鈴木 明美,35,Fukuoka,320
+84,山田 翔太,64,Nagoya,746
+85,鈴木 桃子,41,Tokyo,470
+86,清水 真綾,65,Fukuoka,506
+87,前田 花子,44,Fukuoka,305
+88,鈴木 太一,44,Sapporo,544
+89,池田 七夏,59,Tokyo,914
+90,長谷川 和也,21,Osaka,330
+91,伊藤 花子,35,Nagoya,560
+92,遠藤 桃子,51,Fukuoka,496
+93,中村 真綾,45,Fukuoka,232
+94,伊藤 結衣,64,Sapporo,624
+95,鈴木 直樹,61,Nagoya,572
+96,木村 美加子,55,Yokohama,786
+97,加藤 充,53,Nagoya,513
+98,田中 七夏,37,Fukuoka,286
+99,伊藤 七夏,46,Yokohama,551
+100,池田 直人,22,Tokyo,146
+</code></pre>
+    </details>
+    <ul>
+      <li><strong>件数:</strong> 100件</li>
+      <li>
+        <strong>生成方法:</strong>
+        <code>Faker</code>ライブラリを使用し、Pythonスクリプトで生成。
+        <ul>
+          <li>
+            <code>Faker</code>ライブラリのインストール:
+            <pre><code class="language-bash">python -m pip install Faker --user
+</code></pre>
+          </li>
+          <li>
+            データ生成スクリプトの実行:
+            <pre><code class="language-bash">python generate_data.py
+</code></pre>
+          </li>
+          <li>
+            <code>generate_data.py</code> の削除:
+            <pre><code class="language-bash">del generate_data.py
+</code></pre>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h2>2. Jupyter Notebook環境の構築</h2>
+    <p>
+      「<code>sample_data.csv</code>の分析をJupyter
+      Notebookで作成したい」というリクエストに基づき、データ分析ツールとしてのJupyterと、分析に必要なライブラリをインストールした。
+    </p>
+    <ol>
+      <li>
+        <p><strong>Jupyter Notebook / jupytext のインストール:</strong></p>
+        <ul>
+          <li>
+            Jupyter Notebookのインストール:
+            <pre><code class="language-bash">python -m pip install notebook --user
+</code></pre>
+          </li>
+          <li>
+            <code>jupytext</code
+            >のインストール（<code>.py</code>から<code>.ipynb</code>への変換用）:
+            <pre><code class="language-bash">python -m pip install jupytext --user
+</code></pre>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>データ分析ライブラリ (pandas) のインストール:</strong></p>
+        <pre><code class="language-bash">python -m pip install pandas --user
+</code></pre>
+      </li>
+      <li>
+        <p>
+          <strong>Jupyterカーネルの設定:</strong> Jupyter
+          Notebook実行時に発生した<code>ModuleNotFoundError</code>を解決するため、Jupyterが使用するPython環境を明示的に登録した。
+        </p>
+        <pre><code class="language-bash">python -m ipykernel install --user --name=my-python-env --display-name=&quot;My Python Env&quot;
+</code></pre>
+      </li>
+    </ol>
+    <h2>3. Jupyter Notebookの作成</h2>
+    <p>
+      Jupyter
+      Notebookのファイル破損問題（<code>SyntaxError</code>）を回避するため、Pythonスクリプトから変換する方式を採用した。
+    </p>
+    <ol>
+      <li>
+        <strong>分析コードを記述した <code>analysis.py</code> を作成。</strong>
+      </li>
+      <li>
+        <strong><code>.ipynb</code> ファイルへ変換:</strong>
+        <pre><code class="language-bash">python -m jupytext --to notebook analysis.py -o analysis.ipynb
+</code></pre>
+      </li>
+      <li>
+        <strong>不要ファイルの削除とリネーム:</strong>
+        <ul>
+          <li>
+            <code>analysis.ipynb</code> (旧版),
+            <code>analysis_v2.ipynb</code> (旧版),
+            <code>analysis.py</code> を削除。
+          </li>
+          <li>
+            <code>analysis_final.ipynb</code> を
+            <code>analysis.ipynb</code> にリネーム。
+          </li>
+        </ul>
+        <pre><code class="language-bash">del analysis.ipynb analysis_v2.ipynb analysis.py
+move analysis_final.ipynb analysis.ipynb
+</code></pre>
+      </li>
+    </ol>
+    <h2>4. データ分析の初歩（EDA）</h2>
+    <p>
+      <code>df.info()</code
+      >の出力内容に関する質問（「これなに」）をきっかけに、作成した<code>analysis.ipynb</code>内で基本的なデータ分析（探索的データ分析:
+      EDA）を実行した。
+    </p>
+    <ul>
+      <li>
+        <strong>データの読み込みと確認:</strong> <code>pd.read_csv()</code>,
+        <code>df.head()</code>
+        を用いてデータフレームを読み込み、最初の数行を確認。
+      </li>
+      <li>
+        <strong>データの概要把握:</strong>
+        <code>df.info()</code>
+        を用いて、データ型、非null値の数、メモリ使用量などを確認。
+      </li>
+      <li>
+        <strong>基本統計量の確認:</strong>
+        <code>df.describe()</code>
+        を用いて、数値データの平均、標準偏差、最小値、最大値などを確認。
+      </li>
+    </ul>
+    <h3>初期分析結果</h3>
+    <p><img src="images/initial_analysis.png" alt="初期分析結果" /></p>
+    <h2>5. データ可視化</h2>
+    <p>
+      「まずはデータ可視化で」というリクエストに応え、データの傾向を視覚的に把握するため、グラフを作成した。
+    </p>
+    <ol>
+      <li>
+        <p><strong>可視化ライブラリのインストール:</strong></p>
+        <pre><code class="language-bash">python -m pip install matplotlib seaborn --user
+</code></pre>
+      </li>
+      <li>
+        <p>
+          <strong
+            ><code>analysis.ipynb</code> に以下のグラフ作成コードを追加:</strong
+          >
+        </p>
+        <ul>
+          <li>都市ごとの売上 (棒グラフ)</li>
+          <li>年齢の分布 (ヒストグラム)</li>
+          <li>年齢と売上の関係 (散布図)</li>
+        </ul>
+      </li>
+    </ol>
+    <h3>可視化結果</h3>
+    <p><img src="images/visualization.png" alt="可視化結果" /></p>
+    <h2>6. 簡単な機械学習</h2>
+    <p>
+      「簡単な機械学習も行いたい」という要望に基づき、売上を予測する線形回帰モデルを構築した。
+    </p>
+    <ol>
+      <li>
+        <p><strong>機械学習ライブラリのインストール:</strong></p>
+        <pre><code class="language-bash">python -m pip install scikit-learn --user
+</code></pre>
+      </li>
+      <li>
+        <p>
+          <strong><code>analysis.ipynb</code> に以下の処理コードを追加:</strong>
+        </p>
+        <ul>
+          <li>
+            <strong>データの前処理:</strong>
+            カテゴリ変数である「都市」を数値に変換 (One-Hotエンコーディング)。
+          </li>
+          <li>
+            <strong>訓練・テスト分割:</strong> データを学習用と評価用に分割。
+          </li>
+          <li><strong>モデルの学習:</strong> 線形回帰モデルを学習。</li>
+          <li>
+            <strong>モデルの評価:</strong>
+            決定係数（R^2）などで精度を評価し、結果を可視化。
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h3>機械学習結果</h3>
+    <p><img src="images/machine_learning.png" alt="機械学習結果" /></p>
+    <h2>7. レポートの生成</h2>
+    <p>
+      「ここまでやったことをhtmlで資料として見れるようにしてほしい」という要望から、作業内容をまとめたHTMLレポートを生成した。
+    </p>
+    <ol>
+      <li>
+        <p>
+          <strong
+            ><code>setup_and_analysis_summary.md</code> の作成と更新:</strong
+          >
+        </p>
+        <ul>
+          <li>作業の進行に合わせて、Markdown形式で手順書を作成・更新。</li>
+          <li>
+            各ステップのプロンプト要約、詳細なコマンド、画像などを埋め込み。
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>
+          <strong
+            >HTML変換スクリプト
+            <code>convert_to_html.py</code> の作成と実行:</strong
+          >
+        </p>
+        <ul>
+          <li>MarkdownファイルをHTMLに変換するPythonスクリプトを作成。</li>
+          <li>
+            スクリプトを実行し、<code>analysis_report.html</code> を生成。
+          </li>
+        </ul>
+        <pre><code class="language-bash">python convert_to_html.py
+</code></pre>
+        <ul>
+          <li>
+            <code>convert_to_html.py</code> の削除:
+            <pre><code class="language-bash">del convert_to_html.py
+</code></pre>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Jupyter NotebookからのHTMLレポート生成:</strong></p>
+        <ul>
+          <li>
+            Jupyter Notebookの実行結果をすべて含んだHTMLレポート
+            <code>analysis.html</code> を生成。
+          </li>
+        </ul>
+        <pre><code class="language-bash">python -m nbconvert --to html --execute analysis.ipynb
+</code></pre>
+        <ul>
+          <li>
+            <code>analysis_report.html</code> (旧版) の削除:
+            <pre><code class="language-bash">del analysis_report.html
+</code></pre>
+          </li>
+        </ul>
+        <pre><code></code></pre>
+      </li>
+    </ol>
+  </body>
+</html>

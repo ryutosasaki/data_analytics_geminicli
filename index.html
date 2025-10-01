@@ -66,6 +66,10 @@
     <p>
       「簡単なデータ分析を試したい」という要望に応え、散布図で傾向を把握できるよう、分析対象となるサンプルデータを作成した。
     </p>
+    <blockquote>
+    <p><b>使用したプロンプト:</b></p>
+      <p>「簡単なデータ分析を試したいので、サンプルデータを作成してください。データはCSV形式で、ID、Name、Age、City, Salesの列を含めてください。特に、年齢と売上の間には何らかの相関が見られるようにして、後で散布図で傾向を分析できるようにしてください。データ件数は100件程度でお願いします。」</p>
+    </blockquote>
     <ul>
       <li><strong>ファイル名:</strong> <code>sample_data.csv</code></li>
     </ul>
@@ -203,6 +207,10 @@
       「<code>sample_data.csv</code>の分析をJupyter
       Notebookで作成したい」というリクエストに基づき、データ分析ツールとしてのJupyterと、分析に必要なライブラリをインストールした。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「先ほど作成した <code>sample_data.csv</code> を使って、Jupyter Notebookでデータ分析を行いたいです。まずは、そのための環境を構築してください。Jupyter Notebookと、データ分析に必要となるであろう <code>pandas</code> ライブラリをインストールしてください。」</p>
+    </blockquote>
     <ol>
       <li>
         <p><strong>Jupyter Notebook / jupytext のインストール:</strong></p>
@@ -239,6 +247,10 @@
       Jupyter
       Notebookのファイル破損問題（<code>SyntaxError</code>）を回避するため、Pythonスクリプトから変換する方式を採用した。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「Jupyter Notebookで作業を始めたいのですが、直接 <code>.ipynb</code> ファイルを作成すると <code>SyntaxError</code> が発生して困っています。何か回避策はありますか？例えば、一度Pythonスクリプト（<code>.py</code>）として分析コードを書いて、それを <code>.ipynb</code> に変換する方法はどうでしょうか。その手順を教えてください。」</p>
+    </blockquote>
     <ol>
       <li>
         <strong>分析コードを記述した <code>analysis.py</code> を作成。</strong>
@@ -272,6 +284,10 @@ move analysis_final.ipynb analysis.ipynb
       >の出力内容に関する質問（「これなに」）をきっかけに、作成した<code>analysis.ipynb</code>内で基本的なデータ分析（探索的データ分析:
       EDA）を実行した。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「Jupyter Notebookで <code>df.info()</code> を実行したのですが、表示されたこの出力は何を意味しているのですか？この機会に、基本的なデータ分析（探索的データ分析）のやり方を教えてください。データの読み込みから、概要の把握、基本統計量の確認までの一連の流れを <code>analysis.ipynb</code> に実装してください。」</p>
+    </blockquote>
     <ul>
       <li>
         <strong>データの読み込みと確認:</strong> <code>pd.read_csv()</code>,
@@ -295,6 +311,10 @@ move analysis_final.ipynb analysis.ipynb
     <p>
       「まずはデータ可視化で」というリクエストに応え、データの傾向を視覚的に把握するため、グラフを作成した。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「データ分析の次のステップとして、まずはデータを可視化して傾向を掴みたいです。<code>matplotlib</code> と <code>seaborn</code> を使って、<code>analysis.ipynb</code> にいくつかのグラフを追加してください。具体的には、「都市ごとの売上（棒グラフ）」「年齢の分布（ヒストグラム）」「年齢と売上の関係（散布図）」の3つをお願いします。」</p>
+    </blockquote>
     <ol>
       <li>
         <p><strong>可視化ライブラリのインストール:</strong></p>
@@ -320,6 +340,10 @@ move analysis_final.ipynb analysis.ipynb
     <p>
       「簡単な機械学習も行いたい」という要望に基づき、売上を予測する線形回帰モデルを構築した。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「データ可視化で傾向が見えてきたので、簡単な機械学習モデルも試してみたいです。<code>scikit-learn</code> を使って、年齢や都市などの情報から売上（Sales）を予測する線形回帰モデルを構築してください。データの前処理からモデルの学習、評価までの一連の流れを <code>analysis.ipynb</code> に実装し、結果も可視化してください。」</p>
+    </blockquote>
     <ol>
       <li>
         <p><strong>機械学習ライブラリのインストール:</strong></p>
@@ -352,6 +376,10 @@ move analysis_final.ipynb analysis.ipynb
     <p>
       「ここまでやったことをhtmlで資料として見れるようにしてほしい」という要望から、作業内容をまとめたHTMLレポートを生成した。
     </p>
+    <blockquote>
+      <p><b>使用したプロンプト:</b></p>
+      <p>「ここまでの作業内容（環境構築からデータ分析、機械学習まで）を、HTML形式のレポートとしてまとめてください。他の人が見ても分かるように、各ステップで行ったことの概要、実行したコマンド、そして分析結果の画像などを含めてください。最終的に <code>analysis.html</code> というファイル名で出力されると嬉しいです。」</p>
+    </blockquote>
     <ol>
       <li>
         <p>
